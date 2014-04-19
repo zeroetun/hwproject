@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" ng-app>
+<head>
+  <meta charset="utf-8">
+  <title>My AngularJS App</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css"/>
+</head>
+<body>
+   <div class="navbar navbar-static-top">  
+            <div class="navbar-inner blue-bg">
+             mon header
+            </div>
+        </div>  
+  <div  style="width:600px ; height:200px ; background:black">
+ergergerger
+  </div>
+
+ 
+    <div ng-controller="SearchCtrl">
+    <form class="well form-search">
+     <button type="submit" class="btn" ng-click="search()">Search</button>
+  </form>
+     <pre ng-model="result">
+{{result}}
+</pre>
+</div>
+
+       <div class="navbar navbar-fixed-bottom">
+            <div class="navbar-inner blue-bg" style="height: 77px;">footer </div>
+        </div>
+
+  <!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+  -->
+  <script src="lib/angular/angular.js"></script>
+  <script src="js/search.js"></script>
+ 
+</body>
+</html>
