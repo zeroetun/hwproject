@@ -1,6 +1,6 @@
 var http = require('http');
-var qs = require('querystring');
 var url = require('url');
+var data = require('./data');
 
 var port = process.argv[2];
 
@@ -8,11 +8,13 @@ http.createServer(function(request, response) {
 	if(request.method=='POST') {
         var body='';
         request.on('data', function (data) {
-        	body +=data;
+            body +=data;
         });
+
         request.on('end',function(){
-            var postdata =  qs.parse(body);
-            handlePost(response, postdata);
+            postdata = body;
+            console.log(postdata)
+           handlePost(response, postdata)
             });
 
         
@@ -27,8 +29,8 @@ console.log('Server listening on ' + port);
 
 function handlePost(response, postdata) {
 	console.log(postdata);
-	response.writeHead(200, {'Content-Type': 'application/json'});
-	response.end('{post:1}' + '\n');
+     addVisitor(response, postdata)
+
 }
 
 function handleGet(response, urlparts) {
@@ -36,4 +38,19 @@ function handleGet(response, urlparts) {
 	response.writeHead(200, {'Content-Type': 'application/json'});
 	response.end('{post:0}' + '\n');
 }
+
+function reply(response,postdata){
+    response.writeHead(200, {'Content-Type': 'application/json'});
+    response.end(postdata);
+}
+
+function addVisitor(response, jsondata) {
+    console.log(jsondata)
+    visitor = JSON.parse(jsondata)
+    data(visitor.country, visitor.city, function(id){
+        reply(response,'{"id":"' + id + '"}');
+    });
+    
+} 
+
 
