@@ -1,0 +1,37 @@
+Un service de connection qui ajoute un visiteur dés qu'il se connecte sur la page - http://localhost:3000/hello/visitor
+Send :
+- lieu d'ou il vient (resolution d'ip + html5)
+- (date)
+- (id mongo)
+Receive :
+Header :
+Location : http://localhost:3000/hello/visitor/334324235423523
+201 si Ok
+409 si NOK
+
+
+
+Un service de deconnection (delete) - http://localhost:3000/hello/visitor/334324235423523
+Send :
+- id
+Receive : 
+200 si OK
+404 si KO
+
+Quand il clique sur hello cela affiche à qui il dit bonjour (Get) - http://localhost:3000/hello/visitors
+Send : Rien
+Receive :
+{
+count : 100
+visitors : [
+{
+id:121323234
+City : PAris
+Country : France
+}
+...
+]
+}
+
+
+
