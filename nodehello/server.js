@@ -1,56 +1,77 @@
-var http = require('http');
-var url = require('url');
-var data = require('./data');
+// Inspiraded by http://scotch.io/tutorials/javascript/build-a-restful-api-using-node-and-express-4
 
-var port = process.argv[2];
+// BASE SETUP
+// =============================================================================
 
-http.createServer(function(request, response) {
-	if(request.method=='POST') {
-        var body='';
-        request.on('data', function (data) {
-            body +=data;
-        });
+// call the packages we need
+var express    = require('express');        // call express
+var app        = express();                 // define our app using express
+var bodyParser = require('body-parser');
 
-        request.on('end',function(){
-            postdata = body;
-            console.log(postdata)
-           handlePost(response, postdata)
-            });
+// configure app to use bodyParser()
+// this will let us get the data from a POST
+app.use(bodyParser());
 
-        
-    }
-    else if(request.method=='GET') {
-        var urlparts = url.parse(request.url,true);
-        handleGet(response, urlparts);
-    }
-}).listen(port)
+var port = process.env.PORT || 8080;        // set our port
 
-console.log('Server listening on ' + port);
+// ROUTES FOR OUR API
+// =============================================================================
+var router = express.Router();              // get an instance of the express Router
 
-function handlePost(response, postdata) {
-	console.log(postdata);
-     addVisitor(response, postdata)
+// middleware to use for all requests
+router.use(function(req, res, next) {
+    // do logging
+    console.log('Something is happening.');
+    next(); // make sure we go to the next routes and don't stop here
+});
+// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
+router.get('/', function(req, res) {
+    res.json({ message: 'hooray! welcome to our api!' });   
+});
 
-}
+// more routes for our API will happen here
+router.route('/visitor')
+    // register a visitor (accessed at POST http://localhost:8080/api/visitorss)
+    .post(function(req, res) {      
+        var visitor = new Visitor();
+        visitor.country = req.body.country;
+        visitor.city = req.body.city;
+        visitor.date = new Date();
 
-function handleGet(response, urlparts) {
-	console.log(urlparts);
-	response.writeHead(200, {'Content-Type': 'application/json'});
-	response.end('{post:0}' + '\n');
-}
-
-function reply(response,postdata){
-    response.writeHead(200, {'Content-Type': 'application/json'});
-    response.end(postdata);
-}
-
-function addVisitor(response, jsondata) {
-    console.log(jsondata)
-    visitor = JSON.parse(jsondata)
-    data(visitor.country, visitor.city, function(id){
-        reply(response,'{"id":"' + id + '"}');
+        visitor.save(function(err) {
+            if (err) res.send(err);
+            res.json({_id: visitor._id });
+        });      
     });
-    
-} 
 
+router.route('/visitor/:_id')
+    .delete(function(req, res) {
+        Visitor.remove({_id: req.params._id}, function(err, visitor) {
+            if (err) res.send(err);
+            res.json({ message: 'Successfully deleted' });
+        });
+    });
 
+router.route('/visitors')
+    .get(function(req, res) {
+        Visitor.find(function(err, visitors) {
+            if (err) res.send(err);
+            res.json({count: visitors.length, visitors: visitors});
+        });
+    });
+
+// REGISTER OUR ROUTES -------------------------------
+// all of our routes will be prefixed with /api
+app.use('/api', router);
+
+// START THE SERVER
+// =============================================================================
+app.listen(port);
+console.log('Magic happens on port ' + port);
+
+// BASE SETUP
+// =============================================================================
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://127.0.0.1:27017/hello'); // connect to our database
+
+var Visitor = require('./models/visitor');
