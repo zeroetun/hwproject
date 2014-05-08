@@ -44,11 +44,11 @@ router.route('/visitor')
         });      
     });
 
-router.route('/visitor/:_id')
+router.route('/visitor/:id')
     .delete(function(req, res) {
-        Visitor.remove({_id: req.params._id}, function(err, visitor) {
+        Visitor.remove({_id: req.params.id}, function(err, visitor) {
             if (err) res.send(err);
-            res.json({ message: 'Successfully deleted' });
+            res.end();
         });
     });
 
