@@ -9,6 +9,7 @@ function SearchCtrl($scope, $http) {
         // The request is a JSON request.
         $http.get($scope.url).
         success(function(data, status) {
+            console.log(data);
             $scope.result = data; // Show result from server in our <pre></pre> element
         }).
         error(function(data, status) {
