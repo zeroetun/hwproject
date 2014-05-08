@@ -20,6 +20,12 @@ ergergerger
     <form class="well form-search">
      <button type="submit" class="btn" ng-click="search()">Search</button>
      <button type="submit" class="btn" ng-click="delete()">Delete</button>
+  </br>
+     <input type="text" ng-model="country" placeholder="Enter country here" />
+     <input type="text" ng-model="city" placeholder="Enter city here" />
+   </br>
+     <button type="submit" class="btn" ng-click="iAmHere()">iAmHere</button>
+      <input type="hidden" ng-value="visitorId" />
   </form>
      <div  ng-show="result.count > 0" ng-model="result" class="col-md-2 col-md-offset-5">
      <h2> {{result.count}} résultat</h2>
@@ -34,9 +40,9 @@ ergergerger
   </div>
 </div>
 
-       <div class="navbar navbar-fixed-bottom">
+  <!--      <div class="navbar navbar-fixed-bottom">
             <div class="navbar-inner blue-bg" style="height: 77px;">footer </div>
-        </div>
+        </div> -->
 
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>

@@ -1,7 +1,6 @@
 function SearchCtrl($scope, $http) {
     $scope.url = 'http://localhost:8080/api/'; // The url of our search
-    $scope.id = "536b9edeac1031d013000001";
-         
+             
     // The function that will be executed on button click (ng-click="search()")
     $scope.search = function() {
          
@@ -19,12 +18,28 @@ function SearchCtrl($scope, $http) {
     };
 
     $scope.delete = function() {
-        $http.delete($scope.url+"/visitor/"+$scope.id).
+        $http.delete($scope.url+"/visitor/"+$scope.visitorId).
         success(function(data, status) {
-             $scope.result = "success"; // Show result from server in our <pre></pre> element
+            $scope.search();
         }).
         error(function(data, status) {
             $scope.result = data || "Delete failed";            
         });
     }
+
+
+    $scope.iAmHere = function() {
+        var data = {country: $scope.country, city: $scope.city}
+        $http.post($scope.url + 'visitor', data)
+            .success(function(data, status) {
+                $scope.visitorId = data._id;
+                $scope.search();
+               
+                
+            })
+            .error(function(data, status) {
+            $scope.result = data || "Request failed";            
+        });
+    }
 }
+
