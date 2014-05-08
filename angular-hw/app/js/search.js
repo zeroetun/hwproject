@@ -7,7 +7,7 @@ function SearchCtrl($scope, $http) {
         // Create the http post request
         // the data holds the keywords
         // The request is a JSON request.
-        $http({ method: 'GET', url: 'http://localhost:8080/api/visitors' }).
+        $http.get($scope.url, { "data" : "hello world"}).
         success(function(data, status) {
             console.log("test" + data)
             $scope.result = data; // Show result from server in our <pre></pre> element
