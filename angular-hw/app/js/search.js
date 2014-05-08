@@ -1,5 +1,5 @@
 function SearchCtrl($scope, $http) {
-    $scope.url = 'someurl'; // The url of our search
+    $scope.url = 'http://localhost:8080/api/visitors'; // The url of our search
          
     // The function that will be executed on button click (ng-click="search()")
     $scope.search = function() {
