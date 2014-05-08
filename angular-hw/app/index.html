@@ -19,7 +19,13 @@ ergergerger
     <div ng-controller="SearchCtrl">
     <form class="well form-search">
      <button type="submit" class="btn" ng-click="search()">Search</button>
+     </br>
+     <input type="text" ng-model="country" placeholder="Enter country here" />
+     <input type="text" ng-model="city" placeholder="Enter city here" />
+   </br>
+     <button type="submit" class="btn" ng-click="iAmHere()">iAmHere</button>
   </form>
+    <input type="hidden" ng-value="visitorId" />
      <pre ng-model="result">
 {{result}}
 </pre>
