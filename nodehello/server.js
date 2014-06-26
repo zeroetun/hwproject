@@ -9,7 +9,7 @@ var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 
 
-app.use(express.static('..\\angular-hw\\app'));
+app.use(express.static('../angular-hw/app'));
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -40,6 +40,8 @@ router.route('/visitor')
         visitor.country = req.body.country;
         visitor.city = req.body.city;
         visitor.date = new Date();
+        visitor.longitude = req.body.longitude;
+        visitor.latitude = req.body.latitude;
 
         visitor.save(function(err) {
             if (err) res.send(err);
