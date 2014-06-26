@@ -1,4 +1,5 @@
-function SearchCtrl($scope, $http) {
+var app = angular.module("search",["geo"])
+.controller("SearchCtrl",function ($scope, $http) {
     $scope.url = 'http://localhost:8080/api/'; // The url of our search
 
         $http.jsonp("http://www.telize.com/geoip?callback=JSON_CALLBACK").
@@ -47,5 +48,7 @@ function SearchCtrl($scope, $http) {
         });
     }
 
-}
+
+});
+
 
