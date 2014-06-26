@@ -1,7 +1,0 @@
-get
-
-curl -i -H "Accept: application/json" -H "Content-Type: application/json" http://localhost:3000/resource?id=57
-
-post
-curl --data "param1=value1&param2=value2" http://localhost:3000/resource
-
