@@ -1,4 +1,5 @@
-function SearchCtrl($scope, $http) {
+var app = angular.module("search",["geo"])
+.controller("SearchCtrl",function ($scope, $http) {
     $scope.url = 'http://localhost:8080/api/'; // The url of our search
              
     // The function that will be executed on button click (ng-click="search()")
@@ -41,5 +42,5 @@ function SearchCtrl($scope, $http) {
             $scope.result = data || "Request failed";            
         });
     }
-}
+});
 

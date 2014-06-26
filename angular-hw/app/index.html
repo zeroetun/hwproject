@@ -1,44 +1,46 @@
 <!doctype html>
-<html lang="en" ng-app>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <title>My AngularJS App</title>
   <link rel="stylesheet" href="css/bootstrap.min.css"/>
 </head>
-<body>
+<body ng-app="search" >
    <div class="navbar navbar-static-top">  
             <div class="navbar-inner blue-bg">
-             mon header
+             <div id="infoposition"></div>
             </div>
         </div>  
-  <div  style="width:600px ; height:200px ; background:black">
-ergergerger
-  </div>
+
+ <div id="map"  ng-controller="SearchCtrl">
+
+ </div>
+
+ <div id="map"  ng-controller="mapCtrl">
+    
+  
+        
+            <div class="row">
+                <div id="map_canvas" ui-map="model.myMap" style="height: 600px;width: 100%" ui-options="mapOptions">
+                </div>
+                <div ng-repeat="marker in myMarkers" ui-map-marker="myMarkers[$index]">
+                </div>
+            </div>
+            <div class="row" ng-show="showResult()">
+               Latitude: {{lat}} <br />
+               Longitude: {{lng}} <br />
+               Accuracy: {{accuracy}}
+            </div>
+            <div class="row" ng-show="!showResult()">
+                Error : {{error}}
+                Error Code: {{error.code}}
+            </div>       
+        
+    </div>
 
  
-    <div ng-controller="SearchCtrl" style:"margin: 0 auto">
-    <form class="well form-search">
-     <button type="submit" class="btn" ng-click="search()">Search</button>
-     <button type="submit" class="btn" ng-click="delete()">Delete</button>
-  </br>
-     <input type="text" ng-model="country" placeholder="Enter country here" />
-     <input type="text" ng-model="city" placeholder="Enter city here" />
-   </br>
-     <button type="submit" class="btn" ng-click="iAmHere()">iAmHere</button>
-      <input type="hidden" ng-value="visitorId" />
-  </form>
-     <div  ng-show="result.count > 0" ng-model="result" class="col-md-2 col-md-offset-5">
-     <h2> {{result.count}} résultat</h2>
-    <table class="table table-hover" style:"margin: 0 auto">
-      <thead><tr><th>City</th><th>country</th><th>date</th></tr></thead>
-      <tr ng-repeat="visitor in result.visitors">
-        <td data-title="'City'">{{visitor.city}}</td>
-        <td data-title="'Country'">{{visitor.country}}</td>
-        <td data-title="'Date'">{{visitor.date | date:'yyyy-MM-dd HH:mm'}}</td>
-    </table>   
-   
-  </div>
-</div>
+ 
+
 
   <!--      <div class="navbar navbar-fixed-bottom">
             <div class="navbar-inner blue-bg" style="height: 77px;">footer </div>
@@ -49,6 +51,12 @@ ergergerger
   -->
   <script src="lib/angular/angular.js"></script>
   <script src="js/search.js"></script>
+  <script src="js/geoloc.js"></script>
+  <script type="text/javascript" src="lib/bower_components/angular-ui-utils/ui-utils.js"></script>
+<script type="text/javascript" src="lib/bower_components/angular-ui-map/ui-map.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+
+
  
 </body>
 </html>
