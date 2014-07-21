@@ -50,6 +50,7 @@ else {
     $http.post(url+"/visitor", data);
 });
  
+<<<<<<< HEAD
 }  
 
 
@@ -62,6 +63,21 @@ else {
         getError : function (error) {
             var error;
             console.log("Error");
+=======
+        $scope.showResult = function () {
+            return $scope.error == "";
+        }
+ 
+        $scope.mapOptions = {
+            center: new google.maps.LatLng($scope.lat, $scope.lng),
+            zoom: 2,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+ 
+ 
+            
+        $scope.showError = function (error) {
+>>>>>>> 02fd1c0c131a3c3bd8655261679a194055d8c7c3
             switch (error.code) {
                 case error.PERMISSION_DENIED:
                 error = "User denied the request for Geolocation."
@@ -78,7 +94,16 @@ else {
             }
             return error;
         }
+<<<<<<< HEAD
     });
 
 
 
+=======
+
+        var latlng = new google.maps.LatLng("48.8412", "2.3003");
+        $scope.myMarkers.push(new google.maps.Marker({ map: $scope.model.myMap, position: latlng }));
+        console.log($scope.myMarkers);
+ 
+    });
+>>>>>>> 02fd1c0c131a3c3bd8655261679a194055d8c7c3
