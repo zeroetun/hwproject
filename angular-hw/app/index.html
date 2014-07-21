@@ -12,16 +12,10 @@
             </div>
         </div>  
 
- <div id="map"  ng-controller="SearchCtrl">
-
- </div>
-
  <div id="map"  ng-controller="mapCtrl">
     
-  
-        
             <div class="row">
-                <div id="map_canvas" ui-map="model.myMap" style="height: 600px;width: 100%" ui-options="mapOptions">
+                <div id="map_canvas" ui-map="model.myMap" style="height: 400px;width: 80%" ui-options="mapOptions">
                 </div>
                 <div ng-repeat="marker in myMarkers" ui-map-marker="myMarkers[$index]">
                 </div>
@@ -38,13 +32,11 @@
         
     </div>
 
- 
-
     <div ng-controller="SearchCtrl" style:"margin: 0 auto">
     <form class="well form-search">
-     <button type="submit" class="btn" ng-click="search()">Search</button>
-     <button type="submit" class="btn" ng-click="delete()">Delete</button>
-   </br>
+    <button type="submit" class="btn" ng-click="hello()">Hello!</button>
+     <h2>Nombre de participants  {{count}}  </h2>
+
       <input type="hidden" ng-value="visitorId" />
   </form>
      <div  ng-show="result.count > 0" ng-model="result" class="col-md-2 col-md-offset-5">
