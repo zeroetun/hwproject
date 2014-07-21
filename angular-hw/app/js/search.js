@@ -1,52 +1,38 @@
-var app = angular.module("search",["geo"])
-.controller("SearchCtrl",function ($scope, $http) {
-    $scope.url = 'http://localhost:8080/api/'; // The url of our search
+var app = angular.module("app",["ui.map","ui.event"])
+.controller("mainCtrl",function ($scope, $http, Localisation, httpService) {
 
-<<<<<<< HEAD
-       // The function that will be executed on button click (ng-click="search()")
-    $scope.search = function() {
-=======
-        $http.jsonp("http://www.telize.com/geoip?callback=JSON_CALLBACK").
-        success(function(data, status) {
-            var data = {country: data.country, city: data.city, longitude: data.longitude, latitude: data.latitude}
-        $http.post($scope.url + 'visitor', data)
-            .success(function(data, status) {
-                $scope.visitorId = data._id;
-            })
-            .error(function(data, status) {
-            $scope.result = data || "Request failed";            
-        });
-            
-        }).
-        error(function(data, status) {
-            $scope.result = data || "Request failed";            
-        });
->>>>>>> 02fd1c0c131a3c3bd8655261679a194055d8c7c3
+    $scope.map = {
+        lat : "0",
+        lng : "0",
+        accuracy : "0",
+        myMap : undefined,
+        myMarkers : [],
+    };
+
+    $scope.map.mapOptions = {
+            center: new google.maps.LatLng($scope.map.lat, $scope.map.lng),
+            zoom: 2,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+
+    Localisation.getpos().then(function(visitor){
+        console.log("pos" + visitor.longitude);
+       httpService.postVisitor(visitor);
+    })
+  
 
     $scope.hello = function() {
-        $scope.model = { myMap: undefined };
-        
-        $http.get($scope.url + "/visitors")
-            .success(function(data, status) {
-                        $scope.myMarkers = [];
-                        for (i = 0; i < data.count; i++) {
-                                $scope.count = data.count;
-                                var latlng = new google.maps.LatLng(data.visitors[i].latitude, data.visitors[i].longitude);
-                                $scope.myMarkers.push(new google.maps.Marker({ map: $scope.model.myMap, position: latlng }));
-                        }
-                        console.log(data);
-                        console.log($scope.myMarkers);
-                        $scope.showResult;
+   
+         httpService.getAllPos().then(function(visitors){
+            $scope.map.myMarkers.length = 0;
+            for (var i = 0; i < visitors.length; i++) {         
+              var latlng = new google.maps.LatLng(visitors[i].longitude, visitors[i].latitude);
+              $scope.map.myMarkers.push(new google.maps.Marker({ map: $scope.map.myMap, position: latlng }));  
+            }
 
-                    }
-            )
-            .error(function(data, status) 
-                    {
-                        $scope.result = data || "Request failed"; 
-                    }
-            )
+         });
+       
     }
-
 
 });
 
