@@ -34,6 +34,10 @@ var app = angular.module("app",["ui.map","ui.event"])
        
     }
 
+    $scope.leaving = function() {
+        httpService.deleteVisitor("53ce80eba92e101023000002");
+    }
+
 });
 
 
