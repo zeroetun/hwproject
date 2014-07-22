@@ -35,8 +35,26 @@ var app = angular.module("app",["ui.map","ui.event"])
     }
 
     $scope.leaving = function() {
-        httpService.deleteVisitor("53ce80eba92e101023000002");
+        httpService.deleteVisitor("53ce818818bd6ed823000001");
     }
+
+    // MARCHE PAS 
+    // window.onbeforeunload = function (event) {
+    //     var message = 'Sure you want to leave?';
+    //     if (typeof event == 'undefined') {
+    //         event = window.event;
+    //     }
+    //     if (event) {
+    //         event.returnValue = message;
+    //     }
+    //     httpService.deleteVisitor("53ce818818bd6ed823000001");
+
+    //     return message;
+    // }
+
+    // $scope.$on("$destroy", function() {
+    //     httpService.deleteVisitor("53ce850989d7ebd124000001");
+    // });
 
 });
 
