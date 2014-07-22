@@ -23,8 +23,8 @@ router.route('/visitor')
     .post(function(req, res) {      
         visitors.register(req.body.longiture, req.body.latitude, function(err, visitorId) {
             if (err) throw err;
-                res.json({_id: visitorId});
-            })   
+            res.json(201, {_id: visitorId});
+        })   
     });
 
 router.route('/visitor/:id')
@@ -38,7 +38,7 @@ router.route('/visitors')
     .get(function(req, res) {
         visitors.findAll(function(err, visitors) {
             if (err) throw err;
-            res.json({count: visitors.length, visitors: visitors});  
+            res.json(201, {count: visitors.length, visitors: visitors});  
         })
     });
 
