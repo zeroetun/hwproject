@@ -5,46 +5,29 @@
   <title>My AngularJS App</title>
   <link rel="stylesheet" href="css/bootstrap.min.css"/>
 </head>
-<body ng-app="search" >
+<body ng-app="app" >
    <div class="navbar navbar-static-top">  
             <div class="navbar-inner blue-bg">
              <div id="infoposition"></div>
             </div>
         </div>  
 
- <div id="map"  ng-controller="SearchCtrl">
-
- </div>
-
- <div id="map"  ng-controller="mapCtrl">
+ <div id="map"  ng-controller="mainCtrl">
     
-  
-        
             <div class="row">
-                <div id="map_canvas" ui-map="model.myMap" style="height: 600px;width: 100%" ui-options="mapOptions">
+                <div id="map_canvas" ui-map="map.myMap" style="height: 400px;width: 80%" ui-options="map.mapOptions">
                 </div>
-                <div ng-repeat="marker in myMarkers" ui-map-marker="myMarkers[$index]">
+                <div ng-repeat="marker in map.myMarkers" ui-map-marker="map.myMarkers[$index]">
                 </div>
             </div>
-            <div class="row" ng-show="showResult()">
-               Latitude: {{lat}} <br />
-               Longitude: {{lng}} <br />
-               Accuracy: {{accuracy}}
-            </div>
-            <div class="row" ng-show="!showResult()">
-                Error : {{error}}
-                Error Code: {{error.code}}
-            </div>       
+      
         
-    </div>
-
- 
-
-    <div ng-controller="SearchCtrl" style:"margin: 0 auto">
+   
+  
     <form class="well form-search">
-     <button type="submit" class="btn" ng-click="search()">Search</button>
-     <button type="submit" class="btn" ng-click="delete()">Delete</button>
-   </br>
+    <button type="submit" class="btn" ng-click="hello()">Hello!</button>
+     <h2>Nombre de participants  {{map.myMarkers.length}}  </h2>
+
       <input type="hidden" ng-value="visitorId" />
   </form>
      <div  ng-show="result.count > 0" ng-model="result" class="col-md-2 col-md-offset-5">
@@ -72,7 +55,9 @@
   -->
   <script src="lib/angular/angular.js"></script>
   <script src="js/search.js"></script>
-  <script src="js/geoloc.js"></script>
+  <script src="js/services/geoloc.js"></script>
+   <script src="js/services/httpService.js"></script>
+   <script src="js/services/Visitor.js"></script>
   <script type="text/javascript" src="lib/bower_components/angular-ui-utils/ui-utils.js"></script>
 <script type="text/javascript" src="lib/bower_components/angular-ui-map/ui-map.js"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>

@@ -1,33 +1,38 @@
-var app = angular.module("search",["geo"])
-.controller("SearchCtrl",function ($scope, $http) {
-    $scope.url = 'http://localhost:8080/api/'; // The url of our search
+var app = angular.module("app",["ui.map","ui.event"])
+.controller("mainCtrl",function ($scope, $http, Localisation, httpService) {
 
-       // The function that will be executed on button click (ng-click="search()")
-    $scope.search = function() {
-
-        // Create the http post request
-        // the data holds the keywords
-        // The request is a JSON request.
-        $http.get($scope.url+"/visitors").
-        success(function(data, status) {
-            console.log(data);
-            $scope.result = data; // Show result from server in our <pre></pre> element
-        }).
-        error(function(data, status) {
-            $scope.result = data || "Request failed";            
-        });
+    $scope.map = {
+        lat : "0",
+        lng : "0",
+        accuracy : "0",
+        myMap : undefined,
+        myMarkers : [],
     };
 
-    $scope.delete = function() {
-        $http.delete($scope.url+"/visitor/"+$scope.visitorId).
-        success(function(data, status) {
-            $scope.search();
-        }).
-        error(function(data, status) {
-            $scope.result = data || "Delete failed";            
-        });
-    }
+    $scope.map.mapOptions = {
+            center: new google.maps.LatLng($scope.map.lat, $scope.map.lng),
+            zoom: 2,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
 
+    Localisation.getpos().then(function(visitor){
+        console.log("pos" + visitor.longitude);
+       httpService.postVisitor(visitor);
+    })
+  
+
+    $scope.hello = function() {
+   
+         httpService.getAllPos().then(function(visitors){
+            $scope.map.myMarkers.length = 0;
+            for (var i = 0; i < visitors.length; i++) {         
+              var latlng = new google.maps.LatLng(visitors[i].longitude, visitors[i].latitude);
+              $scope.map.myMarkers.push(new google.maps.Marker({ map: $scope.map.myMap, position: latlng }));  
+            }
+
+         });
+       
+    }
 
 });
 
