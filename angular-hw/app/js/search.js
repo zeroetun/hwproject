@@ -16,7 +16,6 @@ var app = angular.module("app",["ui.map","ui.event"])
         }
 
     Localisation.getpos().then(function(visitor){
-        console.log("pos" + visitor.longitude);
        httpService.postVisitor(visitor);
     })
   

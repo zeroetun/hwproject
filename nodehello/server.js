@@ -21,7 +21,7 @@ router.use(function(req, res, next) {
 
 router.route('/visitor')
     .post(function(req, res) {      
-        visitors.register(req.body.longiture, req.body.latitude, function(err, visitorId) {
+        visitors.register(req.body.longitude, req.body.latitude, function(err, visitorId) {
             if (err) throw err;
             res.json(201, {_id: visitorId});
         })   
