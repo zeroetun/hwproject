@@ -2,68 +2,53 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>My AngularJS App</title>
+  <title>Hellow world</title>
   <link rel="stylesheet" href="css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="css/hello.css" />
 </head>
 <body ng-app="app" >
-   <div class="navbar navbar-static-top">  
-            <div class="navbar-inner blue-bg">
-             <div id="infoposition"></div>
-            </div>
-        </div>  
+    <header>
+      <div class="media">
+          <img class="media-object" src="img/hand.png" alt="L.O.WORLD">
+        <div class="media-body">
+          <h4 class="media-heading">L.O.WORLD</h4>
+        </div>
+      </div>
+    </header>
 
- <div id="map"  ng-controller="mainCtrl">
-    
-            <div class="row">
-                <div id="map_canvas" ui-map="map.myMap" style="height: 400px;width: 80%" ui-options="map.mapOptions">
-                </div>
-                <div ng-repeat="marker in map.myMarkers" ui-map-marker="map.myMarkers[$index]">
-                </div>
-            </div>
-      
-        
-   
-  
-    <form class="well form-search">
-    <button type="submit" class="btn" ng-click="hello()">Hello!</button>
-    <button type="submit" class="btn" ng-click="leaving()">I am leaving.</button>
-     <h2>Nombre de participants  {{map.myMarkers.length}}  </h2>
-
-      <input type="hidden" ng-value="visitorId" />
-  </form>
-     <div  ng-show="result.count > 0" ng-model="result" class="col-md-2 col-md-offset-5">
-     <h2> {{result.count}} résultat</h2>
-    <table class="table table-hover" style:"margin: 0 auto">
-      <thead><tr><th>City</th><th>country</th><th>date</th><th>longitude</th><th>latitude</th></tr></thead>
-      <tr ng-repeat="visitor in result.visitors">
-        <td data-title="'City'">{{visitor.city}}</td>
-        <td data-title="'Country'">{{visitor.country}}</td>
-        <td data-title="'Date'">{{visitor.date | date:'yyyy-MM-dd HH:mm'}}</td>
-        <td data-title="'Longitude'">{{visitor.longitude}}</td>
-        <td data-title="'Latitude'">{{visitor.latitude}}</td>
-    </table>   
-   
+<section >    
+<div id="map"  ng-controller="mainCtrl">
+  <div class="row">
+        <div id="counter">
+          <a>
+            Hellowers
+          <span class="badge pull-left">{{map.myMarkers.length}}</span> 
+        </a>
+      <button type="submit" class="btn btn-primary" ng-click="hello()">Say Hello!</button>
+    </div>
+    <span>
+    </span>
+    <div id="map_canvas" ui-map="map.myMap" style="height: 400px;width: 60%" ui-options="map.mapOptions">
+    </div>
+    <div ng-repeat="marker in map.myMarkers" ui-map-marker="map.myMarkers[$index]">
+    </div>
   </div>
 </div>
-
-
-  <!--      <div class="navbar navbar-fixed-bottom">
-            <div class="navbar-inner blue-bg" style="height: 77px;">footer </div>
-        </div> -->
-
-  <!-- In production use:
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
-  -->
-  <script src="lib/angular/angular.js"></script>
-  <script src="js/search.js"></script>
-  <script src="js/services/geoloc.js"></script>
-   <script src="js/services/httpService.js"></script>
-   <script src="js/services/Visitor.js"></script>
-  <script type="text/javascript" src="lib/bower_components/angular-ui-utils/ui-utils.js"></script>
+</section>
+<footer>
+  <h3> About us </a>
+  <p>
+  We are two friends trying to connect a huge number of peopole to have fun all together.  
+</p>
+</footer>  
+<script src="lib/angular/angular.js"></script>
+<script src="js/search.js"></script>
+<script src="js/services/geoloc.js"></script>
+<script src="js/services/httpService.js"></script>
+<script src="js/services/Visitor.js"></script>
+<script type="text/javascript" src="lib/bower_components/angular-ui-utils/ui-utils.js"></script>
 <script type="text/javascript" src="lib/bower_components/angular-ui-map/ui-map.js"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 
-
- 
 </body>
 </html>
