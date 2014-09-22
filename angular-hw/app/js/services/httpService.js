@@ -2,9 +2,17 @@ app.service("httpService", function ($http,$q,Visitor){
 	url = 'http://localhost:8080/api/'; // The url of our search
 
 	this.postVisitor = function(visitor){
+		var defer = $q.defer();
 		var data = visitor.toJson();
 		console.log(data);
-		$http.post(url+"visitor", data);
+		$http.post(url+"visitor", data)
+			.success(function(data, status, headers, config) {
+				defer.resolve(data._id);
+  			})
+  			.error(function(data, status, headers, config) {
+    			throw new Error("Error");
+  			});
+  			return defer.promise; 
 	 }
 
 	this.getAllPos = function(){

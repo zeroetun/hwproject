@@ -1,6 +1,8 @@
 var app = angular.module("app",["ui.map","ui.event"])
 .controller("mainCtrl",function ($scope, $http, Localisation, httpService) {
 
+    $scope.visitorId;
+
     $scope.map = {
         lat : "0",
         lng : "0",
@@ -16,7 +18,9 @@ var app = angular.module("app",["ui.map","ui.event"])
         }
 
     Localisation.getpos().then(function(visitor){
-       httpService.postVisitor(visitor);
+       httpService.postVisitor(visitor).then(function(id) {
+            $scope.visitorId = id;
+       });
     })
   
 
@@ -30,30 +34,26 @@ var app = angular.module("app",["ui.map","ui.event"])
             }
 
          });
+
+         console.log("zzz " + $scope.visitorId);
        
     }
 
-    $scope.leaving = function() {
-        httpService.deleteVisitor("53ce818818bd6ed823000001");
+
+    window.onbeforeunload = function (event) {
+
+        var message = 'Your position has been cleaned';
+        if (typeof event == 'undefined') {
+            event = window.event;
+        }
+        if (event) {
+            httpService.deleteVisitor($scope.visitorId);
+            event.returnValue = message;
+            return message;
+        }
+        
+
     }
-
-    // MARCHE PAS 
-    // window.onbeforeunload = function (event) {
-    //     var message = 'Sure you want to leave?';
-    //     if (typeof event == 'undefined') {
-    //         event = window.event;
-    //     }
-    //     if (event) {
-    //         event.returnValue = message;
-    //     }
-    //     httpService.deleteVisitor("53ce818818bd6ed823000001");
-
-    //     return message;
-    // }
-
-    // $scope.$on("$destroy", function() {
-    //     httpService.deleteVisitor("53ce850989d7ebd124000001");
-    // });
 
 });
 
