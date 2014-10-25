@@ -1,27 +1,15 @@
-var app = angular.module("app",["ui.map","ui.event"])
+var app = angular.module("app",["map"])
 .controller("mainCtrl",function ($scope, $http, Localisation, httpService) {
 
+    
     $scope.visitorId;
 
-    $scope.map = {
-        lat : "0",
-        lng : "0",
-        accuracy : "0",
-        myMap : undefined,
-        myMarkers : [],
-    };
 
-    $scope.map.mapOptions = {
-            center: new google.maps.LatLng($scope.map.lat, $scope.map.lng),
-            zoom: 2,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        }
-
-    Localisation.getpos().then(function(visitor){
-       httpService.postVisitor(visitor).then(function(id) {
-            $scope.visitorId = id;
-       });
-    })
+    // Localisation.getpos().then(function(visitor){
+    //    httpService.postVisitor(visitor).then(function(id) {
+    //         $scope.visitorId = id;
+    //    });
+    // })
   
 
     $scope.hello = function() {
@@ -42,15 +30,15 @@ var app = angular.module("app",["ui.map","ui.event"])
 
     window.onbeforeunload = function (event) {
 
-        var message = 'Your position has been cleaned';
-        if (typeof event == 'undefined') {
-            event = window.event;
-        }
-        if (event) {
-            httpService.deleteVisitor($scope.visitorId);
-            event.returnValue = message;
-            return message;
-        }
+        // var message = 'Your position has been cleaned';
+        // if (typeof event == 'undefined') {
+        //     event = window.event;
+        // }
+        // if (event) {
+        //     httpService.deleteVisitor($scope.visitorId);
+        //     event.returnValue = message;
+        //     return message;
+        // }
         
 
     }

@@ -18,7 +18,7 @@
 
 <section >    
 <div id="map"  ng-controller="mainCtrl">
-  <div class="row">
+  <div class="row"><!-- 
         <div id="counter">
           <a>
             Hellowers
@@ -31,7 +31,8 @@
     <div id="map_canvas" ui-map="map.myMap" style="height: 400px;width: 60%" ui-options="map.mapOptions">
     </div>
     <div ng-repeat="marker in map.myMarkers" ui-map-marker="map.myMarkers[$index]">
-    </div>
+    </div> -->
+<div my-map=""></div>
   </div>
 
 </div>
@@ -47,8 +48,7 @@
 <script src="js/services/geoloc.js"></script>
 <script src="js/services/httpService.js"></script>
 <script src="js/services/Visitor.js"></script>
-<script type="text/javascript" src="lib/bower_components/angular-ui-utils/ui-utils.js"></script>
-<script type="text/javascript" src="lib/bower_components/angular-ui-map/ui-map.js"></script>
+<script src="js/directives/map.js"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 
 </body>
